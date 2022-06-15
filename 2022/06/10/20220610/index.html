@@ -6,15 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives | Hexo</title>
+  <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+  <meta name="description" content="已经生成了bai文件，如何往下一步走？ 局部重比对 局部重比对的目的是将BWA比对过程中所发现有 潜在序列插入或者序列删除（insertion和deletion，简称Indel）的区域进行重新校正。 第一步，RealignerTargetCreator ，目的是定位出所有需要进行序列重比对的目标区域。第二步，IndelRealigner，对所有在第一步中找到的目标区域运用算法进行序列重比对，最后得">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/archives/index.html">
+<meta property="og:url" content="http://example.com/2022/06/10/20220610/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="已经生成了bai文件，如何往下一步走？ 局部重比对 局部重比对的目的是将BWA比对过程中所发现有 潜在序列插入或者序列删除（insertion和deletion，简称Indel）的区域进行重新校正。 第一步，RealignerTargetCreator ，目的是定位出所有需要进行序列重比对的目标区域。第二步，IndelRealigner，对所有在第一步中找到的目标区域运用算法进行序列重比对，最后得">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/Users/wangxianning/Library/Application%20Support/typora-user-images/截屏2022-06-10%2012.48.41.png">
+<meta property="og:image" content="http://example.com/Users/wangxianning/Library/Application%20Support/typora-user-images/截屏2022-06-10%2012.49.28.png">
+<meta property="og:image" content="http://example.com/Users/wangxianning/Library/Application%20Support/typora-user-images/截屏2022-06-10%2012.50.57.png">
+<meta property="og:image" content="http://example.com/Users/wangxianning/Library/Application%20Support/typora-user-images/截屏2022-06-10%2013.32.27.png">
+<meta property="og:image" content="http://example.com/Users/wangxianning/Library/Application%20Support/typora-user-images/截屏2022-06-10%2013.39.02.png">
+<meta property="article:published_time" content="2022-06-10T01:29:25.502Z">
+<meta property="article:modified_time" content="2022-06-10T09:24:45.357Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/Users/wangxianning/Library/Application%20Support/typora-user-images/截屏2022-06-10%2012.48.41.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -150,97 +160,197 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-20220610" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>已经生成了bai文件，如何往下一步走？</p>
+<p><strong>局部重比对</strong></p>
+<p>局部重比对的目的是将BWA比对过程中所发现有 <strong>潜在序列插入或者序列删除（insertion和deletion，简称Indel）的区域进行重新校正</strong>。</p>
+<h1 id="第一步，RealignerTargetCreator-，目的是定位出所有需要进行序列重比对的目标区域。"><a href="#第一步，RealignerTargetCreator-，目的是定位出所有需要进行序列重比对的目标区域。" class="headerlink" title="第一步，RealignerTargetCreator ，目的是定位出所有需要进行序列重比对的目标区域。"></a>第一步，RealignerTargetCreator ，目的是定位出所有需要进行序列重比对的目标区域。</h1><h1 id="第二步，IndelRealigner，对所有在第一步中找到的目标区域运用算法进行序列重比对，最后得到捋顺了的新结果。"><a href="#第二步，IndelRealigner，对所有在第一步中找到的目标区域运用算法进行序列重比对，最后得到捋顺了的新结果。" class="headerlink" title="第二步，IndelRealigner，对所有在第一步中找到的目标区域运用算法进行序列重比对，最后得到捋顺了的新结果。"></a>第二步，IndelRealigner，对所有在第一步中找到的目标区域运用算法进行序列重比对，最后得到捋顺了的新结果。</h1><p>但是，如果使用GATK <strong>HaplotypeCaller模块就不需要进行上述步骤</strong></p>
+<h1 id="重新校正碱基质量值（BQSR）"><a href="#重新校正碱基质量值（BQSR）" class="headerlink" title="**重新校正碱基质量值（BQSR） **"></a>**重新校正碱基质量值（BQSR） **</h1><p>**在WGS分析中，变异检测是一个极度依赖测序碱基质量值的步骤。因为这个质量值是衡量我们测序出来的这个碱基到底有多正确的重要（甚至是唯一）指标。<br>**</p>
+<h1 id="第一步，BaseRecalibrator，这里计算出了所有需要进行重校正的read和特征值，然后把这些信息输出为一份校准表文件（sample-name-recal-data-table）"><a href="#第一步，BaseRecalibrator，这里计算出了所有需要进行重校正的read和特征值，然后把这些信息输出为一份校准表文件（sample-name-recal-data-table）" class="headerlink" title="**第一步，BaseRecalibrator，这里计算出了所有需要进行重校正的read和特征值，然后把这些信息输出为一份校准表文件（sample_name.recal_data.table）"></a>**第一步，BaseRecalibrator，这里计算出了所有需要进行重校正的read和特征值，然后把这些信息输出为一份校准表文件（sample_name.recal_data.table）</h1><p>**</p>
+<h1 id="第二步，PrintReads，这一步利用第一步得到的校准表文件（sample-name-recal-data-table）重新调整原来BAM文件中的碱基质量值，并使用这个新的质量值重新输出一份新的BAM文件。"><a href="#第二步，PrintReads，这一步利用第一步得到的校准表文件（sample-name-recal-data-table）重新调整原来BAM文件中的碱基质量值，并使用这个新的质量值重新输出一份新的BAM文件。" class="headerlink" title="第二步，PrintReads，这一步利用第一步得到的校准表文件（sample_name.recal_data.table）重新调整原来BAM文件中的碱基质量值，并使用这个新的质量值重新输出一份新的BAM文件。"></a>第二步，PrintReads，这一步利用第一步得到的校准表文件（sample_name.recal_data.table）重新调整原来BAM文件中的碱基质量值，并使用这个新的质量值重新输出一份新的BAM文件。</h1><p><strong>注意，因为BQSR实际上是为了（尽可能）校正测序过程中的系统性错误，因此，在执行的时候是按照不同的测序lane或者测序文库来进行的，这个时候@RG信息（BWA比对时所设置的）就显得很重要了，算法就是通过@RG中的ID来识别各个独立的测序过程，这也是我开始强调其重要性的原因。</strong></p>
+<p>Indel局部区域重比对的目的：将BWA比对过程中所发现的有潜在序列插入或者序列删除（insertion和deletion，简称Indel）的区域进行重新校正，这个过程往往还会把一些已知的Indel区域一并作为重比对的区域。鉴于上述原因，重比对会减低后续变异识别的错误率。</p>
+<h6 id="此处需要用到GATK-GenomeAnalysisTK-jar-来实现，包含两个小步骤：①RealignerTargetCreator-，目的是定位出所有需要进行序列重比对的目标区域；②IndelRealigner，对所有在第一步中找到的目标区域运用算法进行序列重比对，最后得到新的结果。这两个步骤缺一不可，依次进行。需要指出的是，这里的-R参数输入的是完整文件名hg38-fa，而不是BWA比对中的索引文件前缀。"><a href="#此处需要用到GATK-GenomeAnalysisTK-jar-来实现，包含两个小步骤：①RealignerTargetCreator-，目的是定位出所有需要进行序列重比对的目标区域；②IndelRealigner，对所有在第一步中找到的目标区域运用算法进行序列重比对，最后得到新的结果。这两个步骤缺一不可，依次进行。需要指出的是，这里的-R参数输入的是完整文件名hg38-fa，而不是BWA比对中的索引文件前缀。" class="headerlink" title="此处需要用到GATK (GenomeAnalysisTK.jar)来实现，包含两个小步骤：①RealignerTargetCreator ，目的是定位出所有需要进行序列重比对的目标区域；②IndelRealigner，对所有在第一步中找到的目标区域运用算法进行序列重比对，最后得到新的结果。这两个步骤缺一不可，依次进行。需要指出的是，这里的-R参数输入的是完整文件名hg38.fa，而不是BWA比对中的索引文件前缀。"></a>此处需要用到GATK (GenomeAnalysisTK.jar)来实现，包含两个小步骤：①RealignerTargetCreator ，目的是定位出所有需要进行序列重比对的目标区域；②IndelRealigner，对所有在第一步中找到的目标区域运用算法进行序列重比对，最后得到新的结果。这两个步骤缺一不可，依次进行。需要指出的是，这里的-R参数输入的是完整文件名hg38.fa，而不是BWA比对中的索引文件前缀。</h6><p>碱基质量重校正 (Base Quality Score Recalibration, BQSR) 主要是通过机器学习的方法构建测序碱基的错误率模型，然后对这些碱基的质量值进行相应的调整。详细的解释依然见，从零开始完整学习全基因组测序数据分析：第4节 构建WGS主流程。</p>
+<h6 id="此处依然用GATK-GenomeAnalysisTK-jar-来实现，包含两个小步骤：①BaseRecalibrator，这里计算出了所有需要进行重校正的read和特征值，然后把这些信息输出为一份校准表文件（sample-recal-data-table）；②PrintReads，这一步利用第一步得到的校准表文件（sample-recal-data-table）重新调整原来BAM文件中的碱基质量值，并使用这个新的质量值重新输出新的BAM文件。"><a href="#此处依然用GATK-GenomeAnalysisTK-jar-来实现，包含两个小步骤：①BaseRecalibrator，这里计算出了所有需要进行重校正的read和特征值，然后把这些信息输出为一份校准表文件（sample-recal-data-table）；②PrintReads，这一步利用第一步得到的校准表文件（sample-recal-data-table）重新调整原来BAM文件中的碱基质量值，并使用这个新的质量值重新输出新的BAM文件。" class="headerlink" title="此处依然用GATK (GenomeAnalysisTK.jar)来实现，包含两个小步骤：①BaseRecalibrator，这里计算出了所有需要进行重校正的read和特征值，然后把这些信息输出为一份校准表文件（sample.recal_data.table）；②PrintReads，这一步利用第一步得到的校准表文件（sample.recal_data.table）重新调整原来BAM文件中的碱基质量值，并使用这个新的质量值重新输出新的BAM文件。"></a>此处依然用GATK (GenomeAnalysisTK.jar)来实现，包含两个小步骤：①BaseRecalibrator，这里计算出了所有需要进行重校正的read和特征值，然后把这些信息输出为一份校准表文件（sample.recal_data.table）；②PrintReads，这一步利用第一步得到的校准表文件（sample.recal_data.table）重新调整原来BAM文件中的碱基质量值，并使用这个新的质量值重新输出新的BAM文件。</h6><p>下载nohup wget <a target="_blank" rel="noopener" href="http://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/chromFa.tar.gz">http://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/chromFa.tar.gz</a> </p>
+<p>HG19参考文件。</p>
+<h1 id="pycharm配置之设置背景图片"><a href="#pycharm配置之设置背景图片" class="headerlink" title="pycharm配置之设置背景图片"></a>pycharm配置之设置背景图片</h1><p>![img](&#x2F;Users&#x2F;wangxianning&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;截屏2022-06-10 12.02.50.png)</p>
+<p>下载了最新版本的gatk，解压之后都是json和html文件。</p>
+<p>所以搜寻</p>
+<img src="/Users/wangxianning/Library/Application Support/typora-user-images/截屏2022-06-10 12.48.41.png" alt="截屏2022-06-10 12.48.41" style="zoom:50%;" />
+
+<p>那么难道是，不用GenomeAnalysisYK.jar?</p>
+<img src="/Users/wangxianning/Library/Application Support/typora-user-images/截屏2022-06-10 12.49.28.png" alt="截屏2022-06-10 12.49.28" style="zoom:50%;" />
+
+<img src="/Users/wangxianning/Library/Application Support/typora-user-images/截屏2022-06-10 12.50.57.png" alt="截屏2022-06-10 12.50.57" style="zoom:50%;" />
+
+<p>只有local和spark.jar 包。</p>
+<img src="/Users/wangxianning/Library/Application Support/typora-user-images/截屏2022-06-10 13.32.27.png" alt="截屏2022-06-10 13.32.27" style="zoom:50%;" />
+
+<p>上面是下载的基因组数据，如何解压：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf chromFa.tar.gz</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<img src="/Users/wangxianning/Library/Application Support/typora-user-images/截屏2022-06-10 13.39.02.png" alt="截屏2022-06-10 13.39.02" style="zoom:50%;" />
+
+<p>java -jar &#x2F;ifs1&#x2F;User&#x2F;wuyushuai&#x2F;gatk-4.2.6.1&#x2F;gatk-package-4.2.6.1-local.jar \</p>
+<blockquote>
+<p>-T RealignerTargetCreator <br>-R &#x2F;ifs1&#x2F;User&#x2F;wuyushuai&#x2F;genome&#x2F;hg19.fa <br>-o indels_religner.intervals <br>-known 1000G_phase1.indels.hg19.vcf <br>-known Mills_and_1000G_gold_standard.indels.hg19.vcf</p>
+</blockquote>
+<p>gatk –java-options “-Xmx4G” HaplotypeCaller \</p>
+<p>-R reference.fasta \</p>
+<p>-I sample1.bam \</p>
+<p>-O variants.g.vcf \</p>
+<p>-ERC GVCF \</p>
+<p>-L exome_intervals.list \</p>
+<p>–read-filter OverclippedReadFilter \</p>
+<p>–QUIET \</p>
+<p>–create-output-variant-index FALSE</p>
+<p>作者：Greatji<br>链接：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/bbce4ae48ae9">https://www.jianshu.com/p/bbce4ae48ae9</a><br>来源：简书<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+<p>关于pyhcarm 无法加载xldr的问题，是因为版本过高，无法处理xlsx文件。</p>
+<p>Python xlrd打不开xlsx文件解决办法</p>
+<p>光明老妖</p>
+<p>于 2021-09-03 14:00:27 发布</p>
+<p>2625<br> 收藏 3<br>文章标签： python<br>版权<br>今天在Python中安装xlrd库，读xlsx文件时，发错错误，查了一下，可能是版本高过，不支持xlsx了（搞不懂，高版本到不支持xlsx了），限低一下版本吧。</p>
+<p>下面代码留存记录一下吧</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ pip uninstall xlrd</span><br><span class="line">$ pip install xlrd==<span class="number">1.2</span><span class="number">.0</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/06/14/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/" class="archive-article-date">
-  	<time datetime="2022-06-14T11:52:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-06-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/06/14/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/">我的第一篇博客文章</a>
-    </h1>
-  
+      
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/06/10/20220610/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/06/14/hello-world/" class="archive-article-date">
-  	<time datetime="2022-06-14T11:48:02.562Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-06-14</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2022/06/14/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Hello World
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/06/14/hello-world/">Hello World</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/06/10/20220610/" class="archive-article-date">
-  	<time datetime="2022-06-10T01:29:25.502Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-06-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
+
+  
 
 
           </div>
@@ -263,8 +373,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
